@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
+
+project(Test)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
+add_subdirectory(../ libwave)
+add_executable(TestExec main.cc)
+message(STATUS "INCLUDE DIR ${LIBWAVE_INCLUDE_DIR}")
+target_link_libraries(TestExec libwave)
+
+# install(TARGETS libwave DESTINATION bin)
