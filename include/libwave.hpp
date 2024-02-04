@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <filesystem>
 // http://soundfile.sapp.org/doc/WaveFormat/
 // https://stackoverflow.com/a/32128050
 namespace libwave
@@ -62,5 +63,5 @@ namespace libwave
         ~WaveFile();
     };
 
-    WaveFile * FromFile(const std::string &fileName);
+    WaveFile * FromFile(const std::filesystem::path &fileName);
 }

@@ -9,17 +9,18 @@ namespace libwave
     {
     }
 
-    WaveFile * FromFile(const std::string &fileName)
+    WaveFile * FromFile(const std::filesystem::path &fileName)
     {
         std::ifstream ifs{fileName, std::ios_base::binary};
-        auto result = new WaveFile();
+        
 
         if (!ifs.is_open())
         {
             std::cerr << "Failed to open file" << std::endl;
-            delete result;
             return nullptr;
         }
+
+        auto result = new WaveFile();
 
         ifs.read((char *)(&result->riff), sizeof(result->riff));
         if (memcmp(result->riff.chunkId, RIFF_ID, 4) || memcmp(result->riff.format, FORMAT, 4))
