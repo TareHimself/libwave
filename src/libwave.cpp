@@ -1,4 +1,4 @@
-#include <libwave.hh>
+#include <libwave.hpp>
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -9,7 +9,7 @@ namespace libwave
     {
     }
 
-    WaveFile *fromFile(std::string fileName)
+    WaveFile * FromFile(const std::string &fileName)
     {
         std::ifstream ifs{fileName, std::ios_base::binary};
         auto result = new WaveFile();
@@ -55,7 +55,6 @@ namespace libwave
 
         if (!bHasReadData)
         {
-            std::cerr << "Failed To Read Data" << std::endl;
             delete result;
             return nullptr;
         }
@@ -64,36 +63,36 @@ namespace libwave
     }
 
     template <>
-    float *WaveFile::getData<float>() { return (float*)data; }
+    float *WaveFile::GetData<float>() { return (float*)data; }
 
     template <>
-    uint8_t *WaveFile::getData<uint8_t>() { return (uint8_t*)data; }
+    uint8_t *WaveFile::GetData<uint8_t>() { return (uint8_t*)data; }
 
     template <>
-    int8_t *WaveFile::getData<int8_t>() { return (int8_t*)data; }
+    int8_t *WaveFile::GetData<int8_t>() { return (int8_t*)data; }
 
     template <>
-    int16_t *WaveFile::getData<int16_t>() { return (int16_t*)data; }
+    int16_t *WaveFile::GetData<int16_t>() { return (int16_t*)data; }
 
     template <>
-    int32_t *WaveFile::getData<int32_t>() { return (int32_t*)data; }
+    int32_t *WaveFile::GetData<int32_t>() { return (int32_t*)data; }
 
-    int WaveFile::getBytesPerSample()
+    int WaveFile::GetBytesPerSample()
     {
         return fmt.bitsPerSample / 8;
     }
 
-    uint32_t WaveFile::getDataSize()
+    uint32_t WaveFile::GetDataSize()
     {
-        return dataSize / getBytesPerSample();
+        return dataSize / GetBytesPerSample();
     }
 
-    int WaveFile::getSampleRate()
+    int WaveFile::GetSampleRate()
     {
         return fmt.sampleRate;
     }
 
-    int WaveFile::getChannels()
+    int WaveFile::GetChannels()
     {
         return fmt.numChannels;
     }

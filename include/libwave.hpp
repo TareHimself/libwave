@@ -49,18 +49,18 @@ namespace libwave
 
     public:
         template <typename T>
-        T *getData();
+        T *GetData();
 
-        int getBytesPerSample();
+        int GetBytesPerSample();
 
-        uint32_t getDataSize();
+        uint32_t GetDataSize();
 
-        int getSampleRate();
+        int GetSampleRate();
 
-        int getChannels();
+        int GetChannels();
 
         ~WaveFile();
     };
 
-    WaveFile *fromFile(std::string fileName);
+    WaveFile * FromFile(const std::string &fileName);
 }

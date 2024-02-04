@@ -5,7 +5,7 @@ project(Test)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 add_subdirectory(../ libwave)
-add_executable(TestExec main.cc)
+add_executable(TestExec main.cpp)
 message(STATUS "INCLUDE DIR ${LIBWAVE_INCLUDE_DIR}")
 target_link_libraries(TestExec libwave)
 

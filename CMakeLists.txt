@@ -1,24 +1,39 @@
-cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 project(libwave VERSION 1.0.0 DESCRIPTION "WAVE decoding and encoding")
 
 set(CMAKE_CXX_STANDARD 17)
+
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
-# Build a shared library named after the project from the files in `src/`
-# file(GLOB_RECURSE SOURCE_FILES "src/*.cc" "src/*.hh")
 
-add_library(${PROJECT_NAME} SHARED ${CMAKE_CURRENT_SOURCE_DIR}/src/libwave.cc)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES 
-VERSION ${PROJECT_VERSION}
-PUBLIC_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/include/libwave.hh
+add_library(${PROJECT_NAME} SHARED ${CMAKE_CURRENT_SOURCE_DIR}/src/libwave.cpp ${CMAKE_CURRENT_SOURCE_DIR}/include/libwave.hpp)
+
+target_include_directories(
+    ${PROJECT_NAME}
+    PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include> 
 )
 
-set(LIBWAVE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include PARENT_SCOPE)
+install(
+    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
+    DESTINATION include/
+)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-# install(TARGETS ${PROJECT_NAME}
-#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(
+    TARGETS libwave
+    EXPORT libwave-targets
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
+install(
+    EXPORT libwave-targets
+    FILE libwaveConfig.cmake
+    NAMESPACE libwave::
+    DESTINATION lib/cmake/libwave
+)
 
 
